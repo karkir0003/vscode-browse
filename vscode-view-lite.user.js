@@ -2,9 +2,9 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.1
+// @version      0.2
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
-// @match        https://github.com/*/*
+// @match        https://github.com/*/*/blob/*
 // @grant        none
 // @updateURL    https://raw.githubusercontent.com/karkir0003/vscode-browse/main/vscode-view-lite.user.js
 // @downloadURL  https://raw.githubusercontent.com/karkir0003/vscode-browse/main/vscode-view-lite.user.js
@@ -31,6 +31,9 @@
     z-index: 9999;
     padding: 20px;
     display: none;
+    font-size: 14px;
+    white-space: pre-wrap; /* Keep whitespace and newlines */
+    border-right: 2px solid #ccc;
   `;
   document.body.appendChild(editor);
 
@@ -44,20 +47,24 @@
       if (link.href.includes('/blob/')) {
         link.addEventListener('click', async (e) => {
           e.preventDefault();
-          const fileUrl = link.href;
-          console.log('[gh-vscode] loading file:', fileUrl);
 
-          const res = await fetch(fileUrl);
-          const text = await res.text();
-          const doc = new DOMParser().parseFromString(text, 'text/html');
-          const code = doc.querySelector('table.highlight');
+          // Convert GitHub blob URL to raw file URL
+          const rawUrl = link.href.replace('/blob/', '/raw/'); 
+          console.log('[gh-vscode] loading raw file:', rawUrl);
 
-          if (code) {
-            editor.innerHTML = `<div style="color: #fff; margin-bottom: 10px;">📄 ${link.textContent}</div>`;
-            editor.appendChild(code.cloneNode(true));
+          try {
+            const res = await fetch(rawUrl);
+            const text = await res.text();
+
+            // Display the file content
+            editor.innerHTML = `
+              <div style="color: #fff; margin-bottom: 10px;">📄 ${link.textContent}</div>
+              <pre style="white-space: pre-wrap; word-wrap: break-word;">${text}</pre>
+            `;
             editor.style.display = 'block';
-          } else {
-            editor.innerHTML = `<div style="color: red;">Failed to load file content.</div>`;
+          } catch (error) {
+            console.error('[gh-vscode] Error loading file:', error);
+            editor.innerHTML = `<div style="color: red;">Error fetching file content.</div>`;
             editor.style.display = 'block';
           }
         });
