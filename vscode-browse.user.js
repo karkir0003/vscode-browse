@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GitHub VSCode Browse
 // @namespace    https://github.com/karkir0003/vscode-browse
-// @version      0.1
+// @version      0.2
 // @description  Adds a VSCode-style file explorer sidebar to GitHub repos
 // @author       karkir0003
 // @match        https://github.com/*/*
@@ -12,7 +12,7 @@
 
 (function () {
   'use strict';
-
+  console.log('[gh-vscode] script loaded');
   const waitForElement = (selector, timeout = 5000) =>
     new Promise((resolve, reject) => {
       const start = Date.now();
