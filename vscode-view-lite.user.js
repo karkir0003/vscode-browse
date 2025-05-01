@@ -41,6 +41,7 @@
   const observer = new MutationObserver(() => {
     const links = document.querySelectorAll('a.js-navigation-open');
     links.forEach(link => {
+      console.log("iterating over link: " link);
       if (link.getAttribute('data-gh-vscode-bound')) return;
       link.setAttribute('data-gh-vscode-bound', 'true');
 
