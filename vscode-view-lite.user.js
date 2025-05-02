@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.6
+// @version      0.7
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -39,16 +39,19 @@
 
   // Observe sidebar file tree
   const observer = new MutationObserver(() => {
-    const links = document.getElementsByClassName("react-tree-show-tree-items");
-    const link_list = Array.from(links)
-    console.log('react tree links: ', link_list);
-    link_list.forEach(link => {
-      console.log("iterating over link: ", link);
+    // const links = document.getElementsByClassName("react-tree-show-tree-items");
+    // const link_list = Array.from(links)
+    const list = document.querySelector('[aria-label="File Tree Navigation"]');
+    console.log("File Tree Nav ", list)
+    // console.log('react tree links: ', link_list);
+    // link_list.forEach(link => {
+    //   console.log("iterating over link: ", link);
     //   if (link.getAttribute('data-gh-vscode-bound')) return;
     //   link.setAttribute('data-gh-vscode-bound', 'true');
 
     //   // if (link.href.includes('/blob/')) {
-    //   //   link.addEventListener('click', async (e) => {
+        // link.addEventListener('click', async (e) => {
+
     //   //     e.preventDefault();
 
     //   //     // Convert GitHub blob URL to raw file URL
@@ -70,8 +73,8 @@
     //   //       editor.innerHTML = `<div style="color: red;">Error fetching file content.</div>`;
     //   //       editor.style.display = 'block';
     //   //     }
-    //   //   });
-    //   // }
+        // });
+      // }
      });
   });
 
