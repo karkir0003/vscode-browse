@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.4
+// @version      0.5
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -40,37 +40,38 @@
   // Observe sidebar file tree
   const observer = new MutationObserver(() => {
     const links = document.getElementsByClassName("react-tree-show-tree-items");
-    links.forEach(link => {
-      console.log("iterating over link: ", link);
-      if (link.getAttribute('data-gh-vscode-bound')) return;
-      link.setAttribute('data-gh-vscode-bound', 'true');
+    console.log('react tree links: ', links);
+    // links.forEach(link => {
+    //   console.log("iterating over link: ", link);
+    //   if (link.getAttribute('data-gh-vscode-bound')) return;
+    //   link.setAttribute('data-gh-vscode-bound', 'true');
 
-      // if (link.href.includes('/blob/')) {
-      //   link.addEventListener('click', async (e) => {
-      //     e.preventDefault();
+    //   // if (link.href.includes('/blob/')) {
+    //   //   link.addEventListener('click', async (e) => {
+    //   //     e.preventDefault();
 
-      //     // Convert GitHub blob URL to raw file URL
-      //     const rawUrl = link.href.replace('/blob/', '/raw/'); 
-      //     console.log('[gh-vscode] loading raw file:', rawUrl);
+    //   //     // Convert GitHub blob URL to raw file URL
+    //   //     const rawUrl = link.href.replace('/blob/', '/raw/'); 
+    //   //     console.log('[gh-vscode] loading raw file:', rawUrl);
 
-      //     try {
-      //       const res = await fetch(rawUrl);
-      //       const text = await res.text();
+    //   //     try {
+    //   //       const res = await fetch(rawUrl);
+    //   //       const text = await res.text();
 
-      //       // Display the file content
-      //       editor.innerHTML = `
-      //         <div style="color: #fff; margin-bottom: 10px;">📄 ${link.textContent}</div>
-      //         <pre style="white-space: pre-wrap; word-wrap: break-word;">${text}</pre>
-      //       `;
-      //       editor.style.display = 'block';
-      //     } catch (error) {
-      //       console.error('[gh-vscode] Error loading file:', error);
-      //       editor.innerHTML = `<div style="color: red;">Error fetching file content.</div>`;
-      //       editor.style.display = 'block';
-      //     }
-      //   });
-      // }
-     });
+    //   //       // Display the file content
+    //   //       editor.innerHTML = `
+    //   //         <div style="color: #fff; margin-bottom: 10px;">📄 ${link.textContent}</div>
+    //   //         <pre style="white-space: pre-wrap; word-wrap: break-word;">${text}</pre>
+    //   //       `;
+    //   //       editor.style.display = 'block';
+    //   //     } catch (error) {
+    //   //       console.error('[gh-vscode] Error loading file:', error);
+    //   //       editor.innerHTML = `<div style="color: red;">Error fetching file content.</div>`;
+    //   //       editor.style.display = 'block';
+    //   //     }
+    //   //   });
+    //   // }
+    //  });
   });
 
   const sidebar = document.querySelector('[data-target="tree-finder.files"]') || document.body;
