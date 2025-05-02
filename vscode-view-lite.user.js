@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.5
+// @version      0.6
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -40,9 +40,10 @@
   // Observe sidebar file tree
   const observer = new MutationObserver(() => {
     const links = document.getElementsByClassName("react-tree-show-tree-items");
-    console.log('react tree links: ', links);
-    // links.forEach(link => {
-    //   console.log("iterating over link: ", link);
+    const link_list = Array.from(links)
+    console.log('react tree links: ', link_list);
+    link_list.forEach(link => {
+      console.log("iterating over link: ", link);
     //   if (link.getAttribute('data-gh-vscode-bound')) return;
     //   link.setAttribute('data-gh-vscode-bound', 'true');
 
@@ -71,7 +72,7 @@
     //   //     }
     //   //   });
     //   // }
-    //  });
+     });
   });
 
   const sidebar = document.querySelector('[data-target="tree-finder.files"]') || document.body;
