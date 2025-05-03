@@ -57,7 +57,6 @@
       if (isFolder !== null) return;
 
       // stitch the raw github user content url
-      //let str = item.id
       const page_path = window.location.pathname;
       const raw_page_path = page_path.replace('/blob/', '/refs/heads/');
       const raw_url = base_url.concat("", raw_page_path)
@@ -67,6 +66,8 @@
       const response = await fetch(raw_url);
       const data = await response.text();
       console.log(data);
+
+      //TODO: With the retrieved raw data, dump it into vscode like view
 
     });
 
