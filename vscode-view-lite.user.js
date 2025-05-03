@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.18
+// @version      0.19
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -49,6 +49,9 @@
       if (!item) return;
     
       const isFile = item.querySelector('.octicon-file');
+      const isFolder = item.querySelector('[class*="octicon-file-directory"]');
+      console.log('is file: ', isFile);
+      console.log('is folder: ', isFolder);
 
       if (isFile) {
         let str = item.id
