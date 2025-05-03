@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.29
+// @version      0.3
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -67,8 +67,6 @@
       const response = await fetch(raw_url);
       const data = await response.text();
       console.log(data);
-      //await fetch(raw_url).then((response) => console.log('file data: ', response.data));
-      //console.log('file data: ', file_data);
 
     });
 
