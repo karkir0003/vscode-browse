@@ -64,7 +64,7 @@
       console.log("page_path: ", raw_url);
 
       //get the raw file data from the raw url
-      const file_data = await fetch(raw_url);
+      const file_data = await fetch(raw_url).then((response) => response.json());
       console.log('file data: ', file_data);
 
     });
