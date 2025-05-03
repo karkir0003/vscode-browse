@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.12
+// @version      0.13
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -36,7 +36,7 @@
     border-right: 2px solid #ccc;
   `;
   document.body.appendChild(editor);
-
+  const base_url=  'https://raw.githubusercontent.com/'
   // Observe sidebar file tree
   const observer = new MutationObserver(() => {
     const file_container = document.querySelector('[aria-label="File Tree Navigation"]')
@@ -53,8 +53,11 @@
     
       if (isFile && !isFolder) {
         let str = item.id
-        console.log('File clicked:', str.replace("-item",""));
-        console.log('Page URI:', window.location.href);
+        const page_path = window.location.pathname.split( '/' );
+        console.log(base_url.concat("", page_path));
+
+
+
       }
     });
 
@@ -95,7 +98,7 @@
   const fileObserver = new MutationObserver(() => {
 
   });
-  
+
   const sidebar = document.querySelector('[data-target="tree-finder.files"]') || document.body;
   const files = document.querySelector('[aria-label="Files"]')
   observer.observe(sidebar, { childList: true, subtree: true });
