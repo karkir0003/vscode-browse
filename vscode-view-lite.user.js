@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.21
+// @version      0.22
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -53,12 +53,12 @@
       console.log('is file: ', isFile);
       console.log('is folder: ', isFolder);
 
-      if (isFolder === null)  {
-        let str = item.id
-        const page_path = window.location.pathname;
-        const raw_page_path = page_path.replace('/blob/', '/refs/heads/');
-        console.log("page_path: ", base_url.concat("", raw_page_path));
-      }
+      if (isFolder !== null) return;
+
+      let str = item.id
+      const page_path = window.location.pathname;
+      const raw_page_path = page_path.replace('/blob/', '/refs/heads/');
+      console.log("page_path: ", base_url.concat("", raw_page_path));
     });
 
     // link_list.forEach(link => {
