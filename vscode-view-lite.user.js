@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.10
+// @version      0.11
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -54,7 +54,8 @@
       const isFolder = item.querySelector('.octicon-file-directory-fill');
     
       if (isFile && !isFolder) {
-        console.log('File clicked:', item.id);
+        let str = item.id
+        console.log('File clicked:', str.replace("-item",""));
         // do your thing here
       }
     });
