@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.13
+// @version      0.14
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -54,7 +54,7 @@
       if (isFile && !isFolder) {
         let str = item.id
         const page_path = window.location.pathname.split( '/' );
-        console.log(base_url.concat("", page_path));
+        console.log("page_path: ",base_url.concat("", page_path));
 
 
 
