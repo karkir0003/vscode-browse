@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.9
+// @version      0.10
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -45,6 +45,25 @@
     const files = file_container.querySelector('[aria-label="Files"]')
     console.log("File Tree Container ", file_container);
     console.log("File Tree ", files);
+
+    document.querySelector('ul[role="tree"]').addEventListener('click', (e) => {
+      const item = e.target.closest('li[role="treeitem"]');
+      if (!item) return;
+    
+      const isFile = item.querySelector('.octicon-file');
+      const isFolder = item.querySelector('.octicon-file-directory-fill');
+    
+      if (isFile && !isFolder) {
+        console.log('File clicked:', item.id);
+        // do your thing here
+      }
+    });
+
+
+
+
+
+
     // console.log('react tree links: ', link_list);
     // link_list.forEach(link => {
     //   console.log("iterating over link: ", link);
@@ -80,7 +99,14 @@
     //  });
   });
 
-  const sidebar = document.querySelector('[data-target="tree-finder.files"]') || document.body;
-  observer.observe(sidebar, { childList: true, subtree: true });
+  const fileObserver = new MutationObserver(() => {
 
+  });
+
+
+
+  const sidebar = document.querySelector('[data-target="tree-finder.files"]') || document.body;
+  const files = document.querySelector('[aria-label="Files"]')
+  observer.observe(sidebar, { childList: true, subtree: true });
+  // fileObserver.observe()
 })();
