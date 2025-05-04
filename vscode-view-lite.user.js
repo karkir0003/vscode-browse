@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.3
+// @version      0.32
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -38,6 +38,13 @@
   document.body.appendChild(editor);
   const base_url=  'https://raw.githubusercontent.com';
 
+  // Escape HTML to show raw safely
+  function escapeHtml(str) {
+    return str.replace(/[&<>'"]/g, tag => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+    }[tag]));
+  }
+
   // Observe sidebar file tree
   const observer = new MutationObserver(() => {
     const file_container = document.querySelector('[aria-label="File Tree Navigation"]');
@@ -68,6 +75,17 @@
       console.log(data);
 
       //TODO: With the retrieved raw data, dump it into vscode like view
+      editor.innerHTML = `
+        <div style="background: #2d2d2d; color: #fff; padding: 10px 15px; font-weight: bold; border-bottom: 1px solid #444;">
+          📄 ${filePath}
+          <span style="float:right; cursor:pointer;" id="gh-vscode-close">❌</span>
+        </div>
+        <pre style="margin: 0; padding: 16px; font-size: 13px; line-height: 1.5; color: #d4d4d4;">${escapeHtml(data)}</pre>
+      `;
+      editor.style.display = 'block';
+      document.getElementById('gh-vscode-close').onclick = () => {
+        editor.style.display = 'none';
+      };
 
     });
 
@@ -105,9 +123,9 @@
     //  });
   });
 
-  const fileObserver = new MutationObserver(() => {
+  // const fileObserver = new MutationObserver(() => {
 
-  });
+  // });
 
   const sidebar = document.querySelector('[data-target="tree-finder.files"]') || document.body;
   const files = document.querySelector('[aria-label="Files"]')
