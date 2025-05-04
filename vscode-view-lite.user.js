@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.33
+// @version      0.34
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -12,6 +12,58 @@
 
 (function () {
   'use strict';
+
+
+
+  function createTextArea(raw_text) {
+    const textarea = document.createElement("textarea");
+
+    textarea.id = "read-only-cursor-text-area";
+    textarea.setAttribute("data-testid", "read-only-cursor-text-area");
+    textarea.setAttribute("aria-label", "file content");
+    textarea.setAttribute("aria-readonly", "true");
+    textarea.setAttribute("inputmode", "none");
+    textarea.setAttribute("tabindex", "0");
+    textarea.setAttribute("aria-multiline", "true");
+    textarea.setAttribute("aria-haspopup", "false");
+    textarea.setAttribute("data-gramm", "false");
+    textarea.setAttribute("data-gramm_editor", "false");
+    textarea.setAttribute("data-enable-grammarly", "false");
+    textarea.setAttribute("spellcheck", "false");
+    textarea.setAttribute("autocorrect", "off");
+    textarea.setAttribute("autocapitalize", "off");
+    textarea.setAttribute("autocomplete", "off");
+    textarea.setAttribute("data-ms-editor", "false");
+    textarea.className = "react-blob-textarea react-blob-print-hide";
+
+    textarea.style.resize = "none";
+    textarea.style.marginTop = "-2px";
+    textarea.style.paddingLeft = "92px";
+    textarea.style.paddingRight = "70px";
+    textarea.style.width = "100%";
+    textarea.style.backgroundColor = "unset";
+    textarea.style.boxSizing = "border-box";
+    textarea.style.color = "transparent";
+    textarea.style.position = "absolute";
+    textarea.style.border = "none";
+    textarea.style.tabSize = "8";
+    textarea.style.outline = "none";
+    textarea.style.overflow = "auto hidden";
+    textarea.style.height = "2220px";
+    textarea.style.fontSize = "12px";
+    textarea.style.lineHeight = "20px";
+    textarea.style.overflowWrap = "normal";
+    textarea.style.overscrollBehaviorX = "none";
+    textarea.style.whiteSpace = "pre";
+    textarea.style.zIndex = "1";
+
+    // Inject raw text
+    textarea.value = raw_text;
+
+    // Append to DOM
+    return textarea
+  }
+  
 
   console.log('[gh-vscode-view-lite] script running...');
 
@@ -49,8 +101,6 @@
   const observer = new MutationObserver(() => {
     const file_container = document.querySelector('[aria-label="File Tree Navigation"]');
     const files = file_container.querySelector('[aria-label="Files"]');
-    // console.log("File Tree Container ", file_container);
-    // console.log("File Tree ", files);
 
     document.querySelector('ul[role="tree"]').addEventListener('click', async (e) => {
       const item = e.target.closest('li[role="treeitem"]');
@@ -70,65 +120,13 @@
       console.log("page_path: ", raw_url);
 
       //get the raw file data from the raw url
-      const response = await fetch(raw_url);
-      const data = await response.text();
-      console.log(data);
-
-      //TODO: With the retrieved raw data, dump it into vscode like view
-      // editor.innerHTML = `
-      //   <div style="background: #2d2d2d; color: #fff; padding: 10px 15px; font-weight: bold; border-bottom: 1px solid #444;">
-      //     📄 ${filePath}
-      //     <span style="float:right; cursor:pointer;" id="gh-vscode-close">❌</span>
-      //   </div>
-      //   <pre style="margin: 0; padding: 16px; font-size: 13px; line-height: 1.5; color: #d4d4d4;">${escapeHtml(data)}</pre>
-      // `;
-      // editor.style.display = 'block';
-      // document.getElementById('gh-vscode-close').onclick = () => {
-      //   editor.style.display = 'none';
-      // };
-
+      const response = await fetch(raw_url).then((response) => response.text());
+      console.log(response)
     });
 
-    // link_list.forEach(link => {
-    //   console.log("iterating over link: ", link);
-    //   if (link.getAttribute('data-gh-vscode-bound')) return;
-    //   link.setAttribute('data-gh-vscode-bound', 'true');
-
-    //   // if (link.href.includes('/blob/')) {
-        // link.addEventListener('click', async (e) => {
-
-    //   //     e.preventDefault();
-
-    //   //     // Convert GitHub blob URL to raw file URL
-    //   //     const rawUrl = link.href.replace('/blob/', '/raw/'); 
-    //   //     console.log('[gh-vscode] loading raw file:', rawUrl);
-
-    //   //     try {
-    //   //       const res = await fetch(rawUrl);
-    //   //       const text = await res.text();
-
-    //   //       // Display the file content
-    //   //       editor.innerHTML = `
-    //   //         <div style="color: #fff; margin-bottom: 10px;">📄 ${link.textContent}</div>
-    //   //         <pre style="white-space: pre-wrap; word-wrap: break-word;">${text}</pre>
-    //   //       `;
-    //   //       editor.style.display = 'block';
-    //   //     } catch (error) {
-    //   //       console.error('[gh-vscode] Error loading file:', error);
-    //   //       editor.innerHTML = `<div style="color: red;">Error fetching file content.</div>`;
-    //   //       editor.style.display = 'block';
-    //   //     }
-        // });
-      // }
-    //  });
   });
-
-  // const fileObserver = new MutationObserver(() => {
-
-  // });
 
   const sidebar = document.querySelector('[data-target="tree-finder.files"]') || document.body;
   const files = document.querySelector('[aria-label="Files"]')
   observer.observe(sidebar, { childList: true, subtree: true });
-  // fileObserver.observe()
 })();
