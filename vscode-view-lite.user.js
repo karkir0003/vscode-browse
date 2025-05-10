@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.35
+// @version      0.36
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -121,9 +121,12 @@
 
       //get the raw file data from the raw url
       const raw_text = await fetch(raw_url).then((response) => response.text());
-      const text_area = getTextArea(raw_text);
-      const element = document.querySelector('#highlighted-line-menu-positioner');
-      element.appendChild(text_area)
+      const new_text_area = getTextArea(raw_text);
+      const exist_text_area = document.querySelector('#read-only-cursor-text-area');
+      console.log(exist_text_area)
+
+      
+      element.appendChild(new_text_area)
 
     });
 
