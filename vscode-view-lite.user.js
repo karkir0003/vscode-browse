@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.37
+// @version      0.38
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -123,17 +123,27 @@
       const raw_text = await fetch(raw_url).then((response) => response.text());
       const new_text_area = getTextArea(raw_text);
 
+      // get text container children copy and append to text_parent
       const text_parent = document.querySelector('#copilot-button-positioner');
-      const exist_text_area = document.querySelector('#read-only-cursor-text-area');
+      const text_box_children = text_parent.children[0]
+      const new_text_box = text_box_children.cloneNode(true)
 
-      const newFlexContainer = document.createElement("div");
-      newFlexContainer.style.display = 'flex'
-      newFlexContainer.appendChild(exist_text_area)
-      newFlexContainer.appendChild(new_text_area)
+      console.log("text_parent_children", text_parent.children)
+      console.log("text_box_children", text_box_children)
 
-      text_parent.replaceChild(newFlexContainer, exist_text_area)
+      text_parent.appendChild(new_text_box)
 
-      element.appendChild(new_text_area)
+
+      // const exist_text_area = document.querySelector('#read-only-cursor-text-area');
+      // console.log(exist_text_area)
+
+      // const newFlexContainer = document.createElement("div");
+      // newFlexContainer.style.display = 'flex'
+      // newFlexContainer.appendChild(exist_text_area)
+      // newFlexContainer.appendChild(new_text_area)
+
+
+      // text_parent.replaceChild(newFlexContainer, exist_text_area)
 
     });
 
