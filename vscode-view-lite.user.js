@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.38
+// @version      0.39
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -132,7 +132,7 @@
       console.log("text_box_children", text_box_children)
 
       text_parent.appendChild(new_text_box)
-
+      text_parent.children = text_parent.children.slice(0,2)
 
       // const exist_text_area = document.querySelector('#read-only-cursor-text-area');
       // console.log(exist_text_area)
