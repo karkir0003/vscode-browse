@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.42
+// @version      0.43
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -125,15 +125,17 @@
 
       // get text container children copy and append to text_parent
       const text_parent = document.querySelector('#copilot-button-positioner');
+      const button_container = text_parent.querySelector('#copilot-button-container')
+
       const text_box_children = text_parent.children[0]
       const new_text_box = text_box_children.cloneNode(true)
 
       console.log("text_parent_children", text_parent.children)
       console.log("text_box_children", text_box_children)
 
-      text_parent.appendChild(new_text_box)
+      text_parent.insertBefore(new_text_box, button_container)
       console.log("first two children: ", Array.from(text_parent.children).slice(0, 2))
-      text_parent.replaceChildren(...Array.from(text_parent.children).slice(0, 2));
+      text_parent.replaceChildren(...Array.from(text_parent.children).slice(0, 2), button_container);
 
 
       // const exist_text_area = document.querySelector('#read-only-cursor-text-area');
