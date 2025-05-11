@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.43
+// @version      0.44
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -133,21 +133,18 @@
       console.log("text_parent_children", text_parent.children)
       console.log("text_box_children", text_box_children)
 
+      // horizontal display test
+      text_parent.style.display = 'flex'
+
       text_parent.insertBefore(new_text_box, button_container)
       console.log("first two children: ", Array.from(text_parent.children).slice(0, 2))
       text_parent.replaceChildren(...Array.from(text_parent.children).slice(0, 2), button_container);
 
 
-      // const exist_text_area = document.querySelector('#read-only-cursor-text-area');
-      // console.log(exist_text_area)
-
       // const newFlexContainer = document.createElement("div");
       // newFlexContainer.style.display = 'flex'
       // newFlexContainer.appendChild(exist_text_area)
       // newFlexContainer.appendChild(new_text_area)
-
-
-      // text_parent.replaceChild(newFlexContainer, exist_text_area)
 
     });
 
