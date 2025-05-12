@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.51
+// @version      0.52
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -135,11 +135,14 @@
 
       // horizontal display test
       text_parent.style.display = 'flex';
-      text_parent.style.overflow = 'scroll';
 
       text_parent.insertBefore(new_text_box, button_container);
       //@todo: test without const 
       const firstTwoChildren = Array.from(text_parent.children).slice(0, 2);
+
+      firstTwoChildren.forEach(child => {
+        child.style.overflow = 'auto';
+      });
 
       // Replace the children with the first two and the button container
       text_parent.replaceChildren(...firstTwoChildren, button_container);
