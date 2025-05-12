@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.47
+// @version      0.48
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -137,7 +137,9 @@
       text_parent.style.display = 'flex'
 
       text_parent.insertBefore(new_text_box, button_container)
-      text_parent.replaceChildren(...Array.from(text_parent.children).slice(0, 2), button_container);
+      const firstTwoChildren = Array.from(text_parent.children).slice(0, 2);
+      // Replace the children with the first two and the button container
+      text_parent.replaceChildren(...firstTwoChildren, button_container);
 
     });
 
