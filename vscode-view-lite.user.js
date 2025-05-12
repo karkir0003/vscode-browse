@@ -136,12 +136,8 @@
       // horizontal display test
       text_parent.style.display = 'flex'
 
-      // text_parent.insertBefore(new_text_box, button_container)
-      // text_parent.replaceChildren(...Array.from(text_parent.children).slice(0, 2), button_container);
-
-      text_boxes = Array.from(text_parent.children).slice(0, 2);
-      text_parent.insertBefore(new_text_box, button_container);
-      text_parent.replaceChildren(...text_boxes, button_container);
+      text_parent.insertBefore(new_text_box, button_container)
+      text_parent.replaceChildren(...Array.from(text_parent.children).slice(0, 2), button_container);
 
     });
 
