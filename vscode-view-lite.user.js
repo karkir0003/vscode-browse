@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.49
+// @version      0.50
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -116,7 +116,7 @@
       // stitch the raw github user content url
       const page_path = window.location.pathname;
       const raw_page_path = page_path.replace('/blob/', '/refs/heads/');
-      const raw_url = base_url.concat("", raw_page_path)
+      const raw_url = base_url.concat("", raw_page_path);
       console.log("page_path: ", raw_url);
 
       //get the raw file data from the raw url
@@ -125,18 +125,18 @@
 
       // get text container children copy and append to text_parent
       const text_parent = document.querySelector('#copilot-button-positioner');
-      const button_container = text_parent.querySelector('#copilot-button-container')
+      const button_container = text_parent.querySelector('#copilot-button-container');
 
-      const text_box_children = text_parent.children[0]
-      const new_text_box = text_box_children.cloneNode(true)
+      const text_box_children = text_parent.children[0];
+      const new_text_box = text_box_children.cloneNode(true);
 
-      console.log("text_parent_children", text_parent.children)
-      console.log("text_box_children", text_box_children)
+      console.log("text_parent_children", text_parent.children);
+      console.log("text_box_children", text_box_children);
 
       // horizontal display test
-      text_parent.style.display = 'flex'
+      text_parent.style.display = 'flex';
 
-      text_parent.insertBefore(new_text_box, button_container)
+      text_parent.insertBefore(new_text_box, button_container);
       const firstTwoChildren = Array.from(text_parent.children).slice(0, 2);
       // Replace the children with the first two and the button container
       text_parent.replaceChildren(...firstTwoChildren, button_container);
@@ -146,6 +146,6 @@
   });
 
   const sidebar = document.querySelector('[data-target="tree-finder.files"]') || document.body;
-  const files = document.querySelector('[aria-label="Files"]')
+  const files = document.querySelector('[aria-label="Files"]');
   observer.observe(sidebar, { childList: true, subtree: true });
 })();
