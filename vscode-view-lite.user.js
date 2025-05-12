@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.55
+// @version      0.56
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -142,7 +142,7 @@
 
       firstTwoChildren.forEach(child => {
         child.style.overflow = 'scroll';
-        print("child", child)
+        console.log("child", child)
       });
 
 
