@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.53
+// @version      0.54
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -141,10 +141,10 @@
       const firstTwoChildren = Array.from(text_parent.children).slice(0, 2);
 
       firstTwoChildren.forEach(child => {
-        child.style.overflow = 'auto';
+        child.style.overflow = 'scroll';
+        print("child", child)
       });
 
-      console.log("first two Children", firstTwoChildren);
 
       // Replace the children with the first two and the button container
       text_parent.replaceChildren(...firstTwoChildren, button_container);
