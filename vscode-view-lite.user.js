@@ -135,9 +135,12 @@
 
       // horizontal display test
       text_parent.style.display = 'flex';
+      text_parent.style.overflow = 'scroll';
 
       text_parent.insertBefore(new_text_box, button_container);
+      //@todo: test without const 
       const firstTwoChildren = Array.from(text_parent.children).slice(0, 2);
+
       // Replace the children with the first two and the button container
       text_parent.replaceChildren(...firstTwoChildren, button_container);
 
