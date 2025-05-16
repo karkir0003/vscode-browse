@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.68
+// @version      0.69
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -128,6 +128,7 @@
       console.log('section_clone', section_clone);
 
       const section_parent = section.parentElement;
+      section_parent.style.display = 'flex';
       console.log('section_parent, ', section_parent);
 
       section_parent.appendChild(section_clone);
