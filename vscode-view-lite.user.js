@@ -2,7 +2,7 @@
 // @name         GitHub VSCode View Lite
 // @namespace    https://github.com/karkir0003/vscode-browse
 // @author       karkir0003
-// @version      0.59
+// @version      0.60
 // @description  Intercept GitHub file clicks and show inline VSCode-style viewer
 // @match        https://github.com/*/*/blob/*
 // @grant        none
@@ -124,7 +124,7 @@
       const new_text_area = getTextArea(raw_text);
 
       const section = document.querySelector('[aria-labelledby^="file-name-id-wide"]').cloneNode(true);
-      const section_parent = section.parentElement;
+      const section_parent = section.parentNode();
       section_parent.appendChild(section);
       // // get text container children copy and append to text_parent
       // const text_parent = document.querySelector('#copilot-button-positioner');
